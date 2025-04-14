@@ -18,7 +18,7 @@
  *
  */
 function getCurrentFunctionName() {
-  throw new Error('Not implemented');
+  return getCurrentFunctionName.name;
 }
 
 /**
@@ -33,6 +33,7 @@ function getCurrentFunctionName() {
  *
  */
 function getFunctionBody(/* func */) {
+  // return func.toString();
   throw new Error('Not implemented');
 }
 
@@ -50,8 +51,8 @@ function getFunctionBody(/* func */) {
  *  ]) => [0, 1, 2]
  *
  */
-function getArgumentsCount(/* funcs */) {
-  throw new Error('Not implemented');
+function getArgumentsCount(funcs) {
+  return funcs.map((func) => func.length);
 }
 
 /**
@@ -70,8 +71,10 @@ function getArgumentsCount(/* funcs */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return function power(num) {
+    return num ** exponent;
+  };
 }
 
 /**
@@ -87,8 +90,15 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...rest) {
+  return function createPolinom(x) {
+    const args = [...rest].reverse();
+    let k = -1;
+    return args.reduce((accom, arg) => {
+      k += 1;
+      return accom + arg * x ** k;
+    }, 0);
+  };
 }
 
 /**
@@ -105,8 +115,11 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const memoFunc = func();
+  return function memoizer() {
+    return memoFunc;
+  };
 }
 
 /**
